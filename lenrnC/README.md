@@ -1,9 +1,9 @@
-# c++温习笔记
+# c++温习笔记（只记录了一些难以理解的)
 
 ## 基本语法
 * C++ 语言定义了一些头文件，这些头文件包含了程序中必需的或有用的信息。上面这段程序中，包含了头文件 <iostream>。
 * 下一行 using namespace std; 告诉编译器使用 std 命名空间。命名空间是 C++ 中一个相对新的概念。std 是标准库函数使用的命名空间，是 standard（标准）的缩写。
-using name space std ，它声明了命名空间 std，后续如果有未指定命名空间的符号，那么默认使用 std，这样就可以使用 cin、cout、vector 等。
+using name space std ，它声明了命名空间 std，后续如果有未指定命名空间的符号，那么默认使用 std，这样就可以使用 cin、cout、vector 等(否则就需要std:: cout)。
 
 
 ## 数据类型
@@ -136,3 +136,141 @@ cout << "Error in program.\n";
 
 ### Lambda 函数与表达式
 
+具体形式如下:
+```
+[capture](parameters)->return-type{body}
+```
+```
+[](int x, int y){ return x < y ; }
+```
+
+### C++ 数学运算
+引用数学头文件 <cmath>
+
+* double cos(double);
+该函数返回弧度角（double 型）的余弦。
+* double sin(double);
+该函数返回弧度角（double 型）的正弦。
+* double tan(double);
+该函数返回弧度角（double 型）的正切。
+* double log(double);
+该函数返回参数的自然对数。
+* double pow(double, double);
+假设第一个参数为 x，第二个参数为 y，则该函数返回 x 的 y 次方。
+* double hypot(double, double);
+该函数返回两个参数的平方总和的平方根，也就是说，参数为一个直角三角形的两个直角边，函数会返回斜边的长度。
+* double sqrt(double);
+该函数返回参数的平方根。
+* int abs(int);
+该函数返回整数的绝对值。
+* double fabs(double);
+该函数返回任意一个十进制数的绝对值。
+* double floor(double);
+该函数返回一个小于或等于传入参数的最大整数。
+
+#### C++ 随机数
+关于随机数生成器，有两个相关的函数。一个是 rand()，该函数只返回一个伪随机数。生成随机数之前必须先调用 srand() 函数。
+######原型： void srand(unsigned seed);
+######用法：它需要提供一个种子，这个种子会对应一个随机数，如果使用相同的种子后面的rand()函数会出现一样的随机数。如： srand(1); 直接使用 1 来初始化种子。不过为了防止随机数每次重复，常常使用系统时间来初始化，即使用 time 函数来获得系统时间，它的返回值为从 00:00:00 GMT, January 1, 1970 到现在所持续的秒数，然后将 time_t 型数据转化为(unsigned)型再传给 srand 函数，即： srand((unsigned) time(&t)); 还有一个经常用法，不需要定义time_t型t变量,即： srand((unsigned) time(NULL)); 直接传入一个空指针，因为你的程序中往往并不需要经过参数获得的t数据。
+例子：
+
+```
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h> /*用到了time函数，所以要有这个头文件*/
+#define MAX 10
+ 
+int main( void)
+{
+    int number[MAX] = {0};
+    int i;
+    srand((unsigned) time(NULL)); /*播种子*/
+    for(i = 0; i < MAX; i++)
+    {
+        number[i] = rand() % 100; /*产生100以内的随机整数*/
+        printf("%d ", number[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+
+## c++数组
+在 C++ 中要声明一个数组，需要指定元素的类型和元素的数量
+
+``` type arrayName [ arraySize ];```
+
+在C++中，setw(int n)用来控制输出间隔,（n-1个空格）
+
+######Array 是固定大小的，不能额外增加元素.当我们想定义不固定大小的字符时,可以使用 vector(向量) 标准库。
+
+### C++ 指向数组的指针
+
+```double balance[50];```
+balance 是一个指向 &balance[0] 的指针，即数组 balance 的第一个元素的地址。
+#### C++ 传递数组给函数
+
+* 方式 1 形式参数是一个指针：```void myFunction(int *param)```
+* 方式 2 形式参数是一个已定义大小的数组： ```void myFunction(int param[10])```
+* 方式 3 形式参数是一个未定义大小的数组：```void myFunction(int param[])```
+
+#### C++ 从函数返回数组
+
+C++ 不允许返回一个完整的数组作为函数的参数。但是，您可以通过指定不带索引的数组名来返回一个指向数组的指针。
+如果您想要从函数返回一个一维数组，您必须声明一个返回指针的函数，如下：
+
+```
+int * myFunction()
+```
+```
+	int *p;
+ 
+   p = getRandom();
+   for ( int i = 0; i < 10; i++ )
+   {
+       cout << "*(p + " << i << ") : ";
+       cout << *(p + i) << endl;
+   }
+```
+
+### C++ 中的 String 类
+
+需要```#include <string>```
+
+string类提供了一系列针对字符串的操作，比如：
+
+1. append() -- 在字符串的末尾添加字符
+2. find() -- 在字符串中查找字符串
+4. insert() -- 插入字符
+5. length() -- 返回字符串的长度
+6. replace() -- 替换字符串
+7. substr() -- 返回某个子字符串
+
+### C++ 指针 vs 数组
+
+指针和数组是密切相关的。事实上，指针和数组在很多情况下是可以互换的。例如，一个指向数组开头的指针，可以通过使用指针的算术运算或数组索引来访问数组。
+
+```
+int  var[MAX] = {10, 100, 200};
+int  *ptr;
+// 指针中的数组地址
+ptr = var;
+for (int i = 0; i < MAX; i++)
+{
+  cout << "var[" << i << "]的内存地址为 ";
+  cout << ptr << endl;
+ 
+  cout << "var[" << i << "] 的值为 ";
+  cout << *ptr << endl;
+ 
+  // 移动到下一个位置
+  ptr++;
+ }
+```
+指针和数组并不是完全互换的
+```
+int  var[MAX] = {10, 100, 200};
+*var = i;    // 这是正确的语法
+var++;       // 这是不正确的
+*(var + 2) = 500;  // 正确
+```
