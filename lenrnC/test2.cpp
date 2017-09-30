@@ -14,8 +14,7 @@ struct Books
 
 int main( )
 {
-   Books Book1;        // 定义结构体类型 Books 的变量 Book1
-   Books Book2;        // 定义结构体类型 Books 的变量 Book2
+   Books Book1,Book2;        // 定义结构体类型 Books 的变量 Book1
 
    // Book1 详述
    strcpy( Book1.title, "C++ 教程");
@@ -42,4 +41,4 @@ int main( )
    cout << "第二本书 ID : " << Book2.book_id <<endl;
 
    return 0;
-}ˇ
+}
