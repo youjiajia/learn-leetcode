@@ -185,7 +185,7 @@ cout << "Error in program.\n";
 #include <stdio.h>
 #include <time.h> /*用到了time函数，所以要有这个头文件*/
 #define MAX 10
- 
+
 int main( void)
 {
     int number[MAX] = {0};
@@ -230,7 +230,7 @@ int * myFunction()
 ```
 ```
 	int *p;
- 
+
    p = getRandom();
    for ( int i = 0; i < 10; i++ )
    {
@@ -265,10 +265,10 @@ for (int i = 0; i < MAX; i++)
 {
   cout << "var[" << i << "]的内存地址为 ";
   cout << ptr << endl;
- 
+
   cout << "var[" << i << "] 的值为 ";
   cout << *ptr << endl;
- 
+
   // 移动到下一个位置
   ptr++;
  }
@@ -285,7 +285,7 @@ var++;       // 这是不正确的
 
 char *names[MAX] 是指针数组, 它的本质是存储指针的数组, 既存储 char 类型的指针的数组, 数组内的每个元素都是一个指针指向一个存储 char 类型的地址
 ```
-const char *names[MAX] = {
+    const char *names[MAX] = {
         "Zara Ali",
         "Hina Ali",
         "Nuha Ali",
@@ -299,8 +299,8 @@ const char *names[MAX] = {
         cout << " --- (*names[i] + 1)       = " << (*names[i] + 1) << endl;
         cout << " --- (char)(*names[i] + 1) = " << (char)(*names[i] + 1) << endl;
         cout << " ------------------------------------ " << endl << endl << endl << endl;
-    }```
-
+    }
+```
 
 ### C++ 指向指针的指针（多级间接寻址）
 
@@ -341,7 +341,7 @@ swap(a, b);//两个值会交换
 
 ```
 double vals[] = {10.1, 12.6, 33.1, 24.1, 50.0};
- 
+
 double& setValues( int i )
 {
   return vals[i];   // 返回第 i 个元素的引用
@@ -367,7 +367,7 @@ setValues(1) = 20.23;
 #### 标准输入流（cin）
 ```
 char name[50];
- 
+
 cout << "请输入您的名称： ";
 cin >> name;
 cout << "您的名称是： " << name << endl;
@@ -391,7 +391,7 @@ cout << "您的名称是： " << name << endl;
 	.
 	.
 	} object_names;
-	
+
 struct Books
 {
    char  title[50];
@@ -402,10 +402,10 @@ struct Books
 
 Books Book1;        // 定义结构体类型 Books 的变量 Book1
    Books Book2;        // 定义结构体类型 Books 的变量 Book2
- 
+
    // Book1 详述
    strcpy( Book1.title, "C++ 教程");
-   strcpy( Book1.author, "Runoob"); 
+   strcpy( Book1.author, "Runoob");
    strcpy( Book1.subject, "编程语言");
    Book1.book_id = 12345;
 ```
@@ -492,17 +492,17 @@ struct tm {
 using namespace std;
 // 基于当前系统的当前日期/时间
    time_t now = time(0);
-   
+
    // 把 now 转换为字符串形式
    char* dt = ctime(&now);
- 
+
    cout << "本地日期和时间：" << dt << endl;
- 
+
    // 把 now 转换为 tm 结构
    tm *gmtm = gmtime(&now);
    dt = asctime(gmtm);
    cout << "UTC 日期和时间："<< dt << endl;
-   
+
    //使用结构 tm 格式化时间:
    // 基于当前系统的当前日期/时间
    time_t now = time(0);
