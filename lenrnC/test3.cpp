@@ -23,5 +23,7 @@ int main ()
        cout << "*(balance + " << i << ") : ";
        cout << *(balance + i) << endl;
    }
+   cout << balance <<endl;
+   cout << sizeof balance <<endl;
    return 0;
 }
