@@ -13,10 +13,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        item = []
-        result = []
-        result.append(item)
-        self.generate(0, nums, item, result)
+        result = [[]]
+        self.generate(0, nums, [], result)
         return result
 
 s = Solution()
