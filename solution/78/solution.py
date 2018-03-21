@@ -2,8 +2,8 @@ import copy
 class Solution(object):
     def generate(self, n, nums, item, result):
         if n >= len(nums):return
-        item.append(nums[n])
-        result.append(copy.copy(item))
+        result.append(item+[nums[n]])
+        item += [nums[n]]
         self.generate(n+1, nums, item, result)
         item.pop()
         self.generate(n+1, nums, item, result)
