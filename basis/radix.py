@@ -1,6 +1,6 @@
 # -*- coding:utf8 -*-
 # 基数排序 分MSD和LSD
-
+import math
 
 def LSDSort(array, d):
     i = 0
@@ -25,5 +25,8 @@ def generate(array, i, d):
 def MSDSort(array, d):
     return generate(array, d, d)
 
-print LSDSort([1,34,5,92,4,2,7,3,133], 3)
-print MSDSort([1,34,5,92,4,2,7,3,133], 3)
+
+array = [1,34,5,92,4,2,7,3,133]
+d = int(math.ceil(math.log(max(array), 10)))
+print LSDSort(array, d)
+print MSDSort(array, d)
