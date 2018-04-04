@@ -4,7 +4,7 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        std::vector<int> result(n, 0);
+        std::vector<int> result(n+3, 0);
         result[1] = 1;
         result[2] = 2;
         for(int i=3;i<=n;i++){
