@@ -2,6 +2,7 @@
 # 有4种面值的邮票很多枚，这4种邮票面值分别1, 4, 12, 21，取5张 求取出这些邮票的最大连续组合值。
 
 
+
 def collect(value, m, VALUES):
     if value == 0:
         return True
