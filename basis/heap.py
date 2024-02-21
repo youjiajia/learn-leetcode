@@ -4,13 +4,14 @@
 
 class MyHeap(object):
     def __init__(self, l):
-        self.heap = l
-        for x in xrange(len(self.heap)/2, -1, -1):
+        import copy
+        self.heap = copy.copy(l)
+        for x in range(len(self.heap)//2 - 1, -1, -1):
             self._swapTop(x)
 
     def _swapTop(self, index):
         size = len(self.heap)
-        left = 2*index
+        left = 2*index +1
         right = left + 1
         minindex = index
         if len(self.heap) > left and self.heap[left] < self.heap[minindex]:
@@ -23,7 +24,14 @@ class MyHeap(object):
 
     def push(self, x):
         self.heap.append(x)
-        self._swapTop(len(self.heap)/2)
+        i = len(self.heap)
+        while True:
+            i = i // 2 - 1
+            if i < 0:
+                i = 0
+            self._swapTop(i)
+            if i == 0:
+                break
 
     def pop(self):
         x, self.heap[0] = self.heap[0], self.heap[-1]
@@ -31,8 +39,13 @@ class MyHeap(object):
         self._swapTop(0)
         return x
 
-myheap = MyHeap([6,8,2,4,5])
-myheap.push(7)
-for _ in xrange(6):
-    print myheap.pop()
+
+L = [2, 5, 3, 5, 1, 5345, 512, 89, 33, 234]
+myheap = MyHeap(L)
+# for _ in range(len(L)):
+#     print(myheap.pop())
+# print("="*20)
+myheap.push(-1)
+# for _ in range(len(L)+1):
+#     print(myheap.pop())
 
