@@ -104,6 +104,50 @@ func HeapSort(l []int)[]int {
 	return newl
 }
 
+func BubbleSort(l []int) []int{
+	for i:=len(l)-1;i > 0;i--{
+		for j:=0;j<i;j++{
+			if l[j] > l[j+1]{
+				tmp := l[j+1]
+				l[j+1] = l[j]
+				l[j] = tmp
+			}
+		}
+	}
+	return l
+}
+
+func exchange(l []int, i int, j int){
+	if i != j{
+		tmp := l[j]
+		l[j] = l[i]
+		l[i] = tmp
+	}
+}
+
+func partition(l []int, start int, end int) int{
+	value := l[start]
+	index := start
+	for i:=start+1;i<=end;i++{
+		if l[i] < value{
+			index++
+			exchange(l, index, i)
+		}
+	}
+	exchange(l, index, start)
+	return index
+}
+
+func QuickSort(l []int, start int, end int) []int{
+	if start < end{
+		index := partition(l, start, end)
+		QuickSort(l, start, index-1)
+		QuickSort(l, index+1, end)
+	}
+	return l
+}
+
+
 func main(){
 	l := []int{1,3,5,9,4,2,7,3}
 	fmt.Printf("insert sort: %v\n", InsertSort(l))
@@ -122,4 +166,15 @@ func main(){
 	fmt.Printf("heap sort: %v\n", HeapSort([]int{}))
 	fmt.Printf("heap sort: %v\n", HeapSort([]int{1}))
 	fmt.Printf("heap sort: %v\n", HeapSort([]int{2,1}))
+	fmt.Println("==================")
+	l = []int{1,3,5,9,4,2,7,3}
+	fmt.Printf("bubble sort: %v\n", BubbleSort(l))
+	fmt.Printf("bubble sort: %v\n", BubbleSort([]int{}))
+	fmt.Printf("bubble sort: %v\n", BubbleSort([]int{1}))
+	fmt.Printf("bubble sort: %v\n", BubbleSort([]int{2,1}))
+	fmt.Println("==================")
+	fmt.Printf("quick sort: %v\n", QuickSort([]int{1,3,5,9,4,2,7,3}, 0, 7))
+	fmt.Printf("quick sort: %v\n", QuickSort([]int{}, 0, -1))
+	fmt.Printf("quick sort: %v\n", QuickSort([]int{1}, 0, 0))
+	fmt.Printf("quick sort: %v\n", QuickSort([]int{2,1}, 0, 1))
 }
