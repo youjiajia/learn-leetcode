@@ -131,21 +131,73 @@ func partition(l []int, start int, end int) int{
 	for i:=start+1;i<=end;i++{
 		if l[i] < value{
 			index++
-			exchange(l, index, i)
+			exchange(l, i, index)
 		}
 	}
-	exchange(l, index, start)
+	exchange(l, start, index)
 	return index
 }
+// 选择一个基准元素,通常选择第一个元素或者最后一个元素, 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的 元素值比基准值大。
+// 此时基准元素在其排好序后的正确位置,然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序。 算法复杂度nlogn
 
 func QuickSort(l []int, start int, end int) []int{
 	if start < end{
 		index := partition(l, start, end)
-		QuickSort(l, start, index-1)
-		QuickSort(l, index+1, end)
+		l = QuickSort(l, start, index-1)
+		l = QuickSort(l, index+1, end)
 	}
 	return l
 }
+
+func merge(l []int, s int, m int, e int) []int{
+	result := make([]int, len(l))
+	copy(result, l)
+	if m > len(l){
+		m = len(l)
+	}
+	if e > len(l){
+		e = len(l)
+	}
+	i, j := s, m
+	ri := s
+	for i<m&&j<e{
+		if l[i] > l[j]{
+			result[ri] = l[j]
+			j++
+			ri++
+		}else{
+			result[ri] = l[i]
+			i++
+			ri++
+		}
+	}
+	for i<m{
+		result[ri] = l[i]
+		i++
+		ri++
+	}
+	for j<m{
+		result[ri] = l[j]
+		j++
+		ri++
+	}
+	return result
+}
+// 归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。算法复杂度是稳定的nlogn
+
+func MergeSort(l []int) []int{
+	p := 1
+	for p<len(l){
+		for i:=0;i<len(l);{
+			l = merge(l, i, i+p,i+2*p)
+			i = i+2*p
+		}
+		p = p*2
+	}
+	return l
+}
+// 二叉树前中后序遍历
+// 二叉排序树 红黑树
 
 
 func main(){
@@ -174,7 +226,14 @@ func main(){
 	fmt.Printf("bubble sort: %v\n", BubbleSort([]int{2,1}))
 	fmt.Println("==================")
 	fmt.Printf("quick sort: %v\n", QuickSort([]int{1,3,5,9,4,2,7,3}, 0, 7))
+	fmt.Printf("quick sort: %v\n", QuickSort([]int{3,1,5,7,2,4,9,6,10,8}, 0, 9))
 	fmt.Printf("quick sort: %v\n", QuickSort([]int{}, 0, -1))
 	fmt.Printf("quick sort: %v\n", QuickSort([]int{1}, 0, 0))
 	fmt.Printf("quick sort: %v\n", QuickSort([]int{2,1}, 0, 1))
+	fmt.Println("==================")
+	fmt.Printf("Merge sort: %v\n", MergeSort([]int{1,3,5,9,4,2,7,3}))
+	fmt.Printf("Merge sort: %v\n", MergeSort([]int{3,1,5,7,2,4,9,6,10,8}))
+	fmt.Printf("Merge sort: %v\n", MergeSort([]int{}))
+	fmt.Printf("Merge sort: %v\n", MergeSort([]int{1}))
+	fmt.Printf("Merge sort: %v\n", MergeSort([]int{2,1}))
 }
